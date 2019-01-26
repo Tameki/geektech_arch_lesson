@@ -19,6 +19,10 @@ public interface MessagesDataSource {
 
     void saveMessage(RMessage message);
 
+    void setComments(long id, List<String> comments);
+
+    void deleteComments(long id);
+
     interface MessageListCallback extends BaseCallback<List<RMessage>> {
 
     }

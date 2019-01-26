@@ -18,6 +18,8 @@
         <activity android:name=".presentation.login.LoginActivity">
         </activity>
         <activity android:name=".presentation.images.ImagesActivity">
+        </activity>
+        <activity android:name=".presentation.beerlist.BeerListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,6 +3,8 @@ package com.geektech.firstarchitecturelesson.data.messages;
 import com.geektech.core.realm.RealmDataSource;
 import com.geektech.firstarchitecturelesson.data.messages.local.model.RMessage;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import io.realm.Realm;
@@ -30,7 +32,6 @@ public class MessagesRepository extends RealmDataSource
             managed.setContent("New content");
 
             RMessage unmanaged = realm.copyFromRealm(managed);
-            managed.deleteFromRealm();
             unmanaged.setContent("---------------");
         });
     }
@@ -82,6 +83,16 @@ public class MessagesRepository extends RealmDataSource
         }
 
         return message;
+    }
+
+    @Override
+    public void setComments(long id, List<String> comments) {
+
+    }
+
+    @Override
+    public void deleteComments(long id) {
+
     }
 
     @Override

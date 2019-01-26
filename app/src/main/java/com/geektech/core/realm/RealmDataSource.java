@@ -1,8 +1,11 @@
 package com.geektech.core.realm;
 
+import android.util.Log;
+
 import com.geektech.firstarchitecturelesson.data.messages.local.model.RMessage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.realm.Realm;
 
@@ -12,6 +15,8 @@ import io.realm.Realm;
  */
 public abstract class RealmDataSource {
 
+    private HashMap<Class, Long> mIds = new HashMap<>();
+
     //One instance for every thread
     protected Realm getRealmInstance() {
         return Realm.getDefaultInstance();
@@ -20,26 +25,38 @@ public abstract class RealmDataSource {
     protected long getNextId(Class c) {
         Realm realm = null;
 
-        ArrayList<RMessage> message = new ArrayList<>();
+        Long currentId = mIds.get(c);
 
-        try {
-            realm = getRealmInstance();
+        if (currentId == null) {
+            try {
+                realm = getRealmInstance();
 
-            String primaryKeyField = realm.getSchema()
-                    .get(c.getSimpleName())
-                    .getPrimaryKey();
+                String primaryKeyField = realm.getSchema()
+                        .get(c.getSimpleName())
+                        .getPrimaryKey();
 
-            Number maxId = realm.where(c).max(primaryKeyField);
-            if (maxId == null)
-                return 1;
+                Number maxId = realm.where(c).max(primaryKeyField);
 
-            return maxId.intValue() + 1;
-        } catch (Exception e) {
-            return -1;
-        } finally {
-            if (realm != null) {
-                realm.close();
+                if (maxId == null) {
+                    maxId = 1;
+                } else {
+                    maxId = maxId.longValue() + 1;
+                }
+
+                mIds.put(c, maxId.longValue());
+
+                return maxId.longValue();
+            } catch (Exception e) {
+                return -1;
+            } finally {
+                if (realm != null) {
+                    realm.close();
+                }
             }
+        } else {
+            currentId ++;
+            mIds.put(c, currentId);
+            return currentId;
         }
     }
 

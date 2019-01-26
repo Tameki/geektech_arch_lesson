@@ -1,7 +1,10 @@
 package com.geektech.firstarchitecturelesson.data.messages.local.model;
 
+import com.geektech.firstarchitecturelesson.data.messages.model.RComment;
+
 import java.util.Date;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -20,11 +23,14 @@ public class RMessage extends RealmObject {
 
     private Date createdAt;
 
+    private RealmList<RComment> comments;
+
     public RMessage() {
         this.id = 0;
         this.contentType = "";
         this.content = "";
         this.createdAt = new Date();
+        this.comments = new RealmList<>();
     }
 
     public RMessage(long id, String contentType, String content, Date createdAt) {
@@ -69,5 +75,13 @@ public class RMessage extends RealmObject {
     @Override
     public String toString() {
         return id + " " + contentType + " " + content;
+    }
+
+    public RealmList<RComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(RealmList<RComment> comments) {
+        this.comments = comments;
     }
 }
