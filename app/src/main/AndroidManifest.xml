@@ -18,14 +18,20 @@
         <activity android:name=".presentation.login.LoginActivity">
         </activity>
         <activity android:name=".presentation.images.ImagesActivity">
-        </activity>
-        <activity android:name=".presentation.beerlist.BeerListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.beerlist.BeerListActivity" />
+
+        <service android:name=".fcm.FCMService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

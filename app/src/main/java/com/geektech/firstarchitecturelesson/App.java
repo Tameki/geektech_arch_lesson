@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.geektech.firstarchitecturelesson.data.messages.local.model.RMessage;
 import com.geektech.firstarchitecturelesson.data.messages.model.RComment;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import io.realm.DynamicRealm;
 import io.realm.Realm;
@@ -19,6 +21,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this);
 
         Realm.init(this);
 

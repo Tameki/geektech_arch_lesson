@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * with Android Studio
  */
 public class BeerRemoteDataSource {
-    public static Retrofit getRetrofit(String baseUrl) {
+    static Retrofit getRetrofit(String baseUrl) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
